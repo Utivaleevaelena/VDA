@@ -88,21 +88,21 @@
     form[n].addEventListener('input', function () { if (form[n].getAttribute('aria-invalid')) setErr(n, check(n)); });
     form[n].addEventListener('change', function () { if (form[n].getAttribute('aria-invalid')) setErr(n, check(n)); });
   });
+  function focusField(el) {
+    var r = el.getBoundingClientRect(), off = header.offsetHeight + 16;
+    if (r.top < off || r.bottom > window.innerHeight) window.scrollTo({ top: r.top + window.scrollY - off, behavior: reduce ? 'auto' : 'smooth' });
+    el.focus({ preventScroll: true });
+  }
   function setStatus(m, cls) { status.textContent = m; status.className = 'form-status' + (cls ? ' ' + cls : ''); }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var first = null;
     REQ.forEach(function (n) { var m = check(n); setErr(n, m); if (m && !first) first = form[n]; });
-    if (first) { setStatus('', ''); first.focus(); return; }
+    if (first) { setStatus('', ''); focusField(first); return; }
     var data = {}; ['name', 'email', 'project_type', 'location', 'message', '_honey'].forEach(function (n) { data[n] = (form[n].value || '').trim(); });
     btn.disabled = true; btn.textContent = MSG.sending; setStatus(MSG.sending, '');
-    if (data._honey) { form.reset(); setStatus(MSG.ok, 'is-ok'); btn.disabled = false; btn.textContent = MSG.send; return; }
-    var sel = form.project_type; data.project_type = sel.options[sel.selectedIndex].text;
-    data._subject = 'Nouveau message — ' + data.project_type + ' — ' + data.name;
-    data._replyto = data.email; data._template = 'table'; data._captcha = 'false';
-    try { fetch('api/notify', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(function () {}); } catch (x) {}
-    fetch('https://formsubmit.co/ajax/valeria.denisova@hotmail.fr', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === false || j.success === 'false') throw new Error('send'); }); })
+    fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.ok !== true) throw new Error('send'); }); })
       .then(function () { form.reset(); setStatus(MSG.ok, 'is-ok'); })
       .catch(function () { setStatus(MSG.err, 'is-err'); })
       .then(function () { btn.disabled = false; btn.textContent = MSG.send; });
