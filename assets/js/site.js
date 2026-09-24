@@ -3,20 +3,7 @@
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mobile = matchMedia('(max-width: 899px)');
 
-  /* header: solid after hero, hide on scroll down (desktop only) */
-  var header = d.getElementById('site-header'), hero = d.getElementById('accueil');
-  var lastY = window.scrollY, ticking = false;
-  function onScroll() {
-    var y = window.scrollY, heroEnd = hero.offsetHeight - header.offsetHeight;
-    header.classList.toggle('is-solid', y > heroEnd - 1);
-    var hide = !mobile.matches && y > lastY && y > header.offsetHeight * 2 && !d.body.classList.contains('menu-open');
-    if (y < lastY - 2 || mobile.matches) header.classList.remove('is-hidden');
-    else if (hide) header.classList.add('is-hidden');
-    lastY = y; ticking = false;
-  }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  header.addEventListener('focusin', function () { header.classList.remove('is-hidden'); });
-  onScroll();
+  var header = d.getElementById('site-header');
 
   /* fullscreen mobile menu */
   var toggle = header.querySelector('.menu-toggle'), layer = d.getElementById('menu-layer');
@@ -93,9 +80,17 @@
     if (r.top < off || r.bottom > window.innerHeight) window.scrollTo({ top: r.top + window.scrollY - off, behavior: reduce ? 'auto' : 'smooth' });
     el.focus({ preventScroll: true });
   }
+  var q = location.search;
+  if (/[?&](envoye|erreur)=1/.test(q)) {
+    var ret = d.getElementById(/envoye=1/.test(q) ? 'form-envoye' : 'form-erreur');
+    ret.classList.add('is-shown');
+    if (history.replaceState) history.replaceState(null, '', location.pathname + '#contact');
+  }
   function setStatus(m, cls) { status.textContent = m; status.className = 'form-status' + (cls ? ' ' + cls : ''); }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    d.querySelectorAll('.form-return').forEach(function (m) { m.classList.remove('is-shown'); });
+    if (/^#form-(envoye|erreur)$/.test(location.hash) && history.replaceState) history.replaceState(null, '', location.pathname + '#contact');
     var first = null;
     REQ.forEach(function (n) { var m = check(n); setErr(n, m); if (m && !first) first = form[n]; });
     if (first) { setStatus('', ''); focusField(first); return; }

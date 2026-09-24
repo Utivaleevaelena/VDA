@@ -36,24 +36,29 @@ const clip = (s, n) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
 async function sendEmail(f) {
   const id = process.env.FORMSUBMIT_ID;
-  if (!id) throw new Error('FORMSUBMIT_ID missing');
+  if (!id) { console.error('[contact] missing env FORMSUBMIT_ID'); throw new Error('missing env'); }
   const r = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(id), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json', Origin: SITE_URL, Referer: SITE_URL + '/' },
     body: JSON.stringify({
-      Nom: f.name, 'E-mail': f.email, Projet: f.typeLabel, Localisation: f.location || '—', Message: f.message,
+      name: f.name, email: f.email, project_type: f.typeLabel, location: f.location || '—', message: f.message,
       _subject: 'Nouveau message — ' + f.typeLabel + ' — ' + f.name,
       _replyto: f.email, _template: 'table', _captcha: 'false'
     })
   });
   const txt = await r.text();
   let j = {}; try { j = JSON.parse(txt); } catch {}
-  if (!r.ok || !(j.success === true || j.success === 'true')) throw new Error('HTTP ' + r.status + ' ' + txt.slice(0, 300));
+  if (r.status !== 200 || !(j.success === true || j.success === 'true')) {
+    console.error('[contact] email failed', r.status, txt.slice(0, 500));
+    throw new Error('email');
+  }
 }
 
 async function sendWhatsApp(f) {
   const phone = process.env.WHATSAPP_PHONE, key = process.env.WHATSAPP_APIKEY;
-  if (!phone || !key) throw new Error('WHATSAPP_PHONE / WHATSAPP_APIKEY missing');
+  if (!phone) console.error('[contact] missing env WHATSAPP_PHONE');
+  if (!key) console.error('[contact] missing env WHATSAPP_APIKEY');
+  if (!phone || !key) throw new Error('missing env');
   const text = [
     '📩 Nouveau message — site',
     'Nom : ' + clip(one(f.name), 80),
@@ -65,14 +70,17 @@ async function sendWhatsApp(f) {
   ].filter((l) => l !== null).join('\n');
   const r = await fetch('https://api.callmebot.com/whatsapp.php?phone=' + encodeURIComponent(phone) + '&apikey=' + encodeURIComponent(key) + '&text=' + encodeURIComponent(text));
   const txt = await r.text();
-  if (!r.ok || /error|invalid|not (been )?activ/i.test(txt)) throw new Error('HTTP ' + r.status + ' ' + txt.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 300));
+  if (!r.ok || /error|invalid|not (been )?activ/i.test(txt)) {
+    console.error('[contact] whatsapp failed', r.status, txt.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 500));
+    throw new Error('whatsapp');
+  }
 }
 
 module.exports = async (req, res) => {
   const wantsJson = (req.headers.accept || '').includes('application/json');
   const reply = (code, body) => {
     if (wantsJson) return res.status(code).json(body);
-    res.statusCode = 303; res.setHeader('Location', '/?' + (body.ok ? 'envoye=1' : 'erreur=1') + '#contact'); return res.end();
+    res.statusCode = 303; res.setHeader('Location', body.ok ? '/?envoye=1#form-envoye' : '/?erreur=1#form-erreur'); return res.end();
   };
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ ok: false, error: 'method' }); }
 
@@ -98,9 +106,9 @@ module.exports = async (req, res) => {
   if (errors.length) return reply(400, { ok: false, error: 'validation', fields: errors });
   f.typeLabel = TYPES[f.project_type];
 
-  const [mail, wa] = await Promise.allSettled([sendEmail(f), sendWhatsApp(f)]);
-  if (mail.status === 'rejected') console.error('[contact] channel=email FAILED:', mail.reason && mail.reason.message);
-  if (wa.status === 'rejected') console.error('[contact] channel=whatsapp FAILED:', wa.reason && wa.reason.message);
+  // network errors / exceptions not already logged inside the senders
+  const safe = (name, p) => p.catch((e) => { if (!/^(email|whatsapp|missing env)$/.test(e && e.message)) console.error('[contact] ' + name + ' failed', 0, e && e.message); throw e; });
+  const [mail, wa] = await Promise.allSettled([safe('email', sendEmail(f)), safe('whatsapp', sendWhatsApp(f))]);
 
   const ok = mail.status === 'fulfilled' || wa.status === 'fulfilled';
   if (!ok) return reply(502, { ok: false, error: 'delivery' });
