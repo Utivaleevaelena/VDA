@@ -62,7 +62,9 @@
   /* form */
   var form = d.getElementById('contact-form'), status = d.getElementById('form-status'), btn = form.querySelector('button[type="submit"]');
   d.querySelectorAll('[data-prefill]').forEach(function (a) { a.addEventListener('click', function () { form.project_type.value = a.getAttribute('data-prefill'); setErr('project_type', ''); }); });
-  var MSG = { req: 'Ce champ est requis.', email: 'Adresse e-mail invalide', ok: 'Merci, votre message a bien été envoyé. Nous vous répondrons prochainement.', err: 'L’envoi n’a pas abouti. Réessayez un peu plus tard ou écrivez via LinkedIn.', sending: 'Envoi…', send: 'Envoyer' };
+  var MSG = root.lang === 'ru'
+    ? { req: 'Это поле обязательно.', email: 'Неверный адрес e-mail', ok: 'Спасибо, ваше сообщение отправлено. Мы скоро ответим.', err: 'Не удалось отправить сообщение. Попробуйте позже или напишите в LinkedIn.', sending: 'Отправка…', send: 'Отправить' }
+    : { req: 'Ce champ est requis.', email: 'Adresse e-mail invalide', ok: 'Merci, votre message a bien été envoyé. Nous vous répondrons prochainement.', err: 'L’envoi n’a pas abouti. Réessayez un peu plus tard ou écrivez via LinkedIn.', sending: 'Envoi…', send: 'Envoyer le message' };
   var REQ = ['name', 'email', 'project_type', 'message'];
   function setErr(n, m) { var el = form[n], out = d.getElementById('err-' + n); out.textContent = m; if (m) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid'); }
   function check(n) {
