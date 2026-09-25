@@ -41,8 +41,8 @@ async function sendEmail(f) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json', Origin: SITE_URL, Referer: SITE_URL + '/' },
     body: JSON.stringify({
-      name: f.name, email: f.email, project_type: f.typeLabel, location: f.location || '—', message: f.message,
-      _subject: 'Nouveau message — ' + f.typeLabel + ' — ' + f.name,
+      name: f.name, email: f.email, project_type: f.typeLabel, location: f.location || '–', message: f.message,
+      _subject: 'Nouveau message – ' + f.typeLabel + ' – ' + f.name,
       _replyto: f.email, _template: 'table', _captcha: 'false'
     })
   });
@@ -60,7 +60,7 @@ async function sendWhatsApp(f) {
   if (!key) console.error('[contact] missing env WHATSAPP_APIKEY');
   if (!phone || !key) throw new Error('missing env');
   const text = [
-    '📩 Nouveau message — site',
+    '📩 Nouveau message – site',
     'Nom : ' + clip(one(f.name), 80),
     'E-mail : ' + f.email,
     'Projet : ' + f.typeLabel,
@@ -113,5 +113,7 @@ module.exports = async (req, res) => {
 
   const ok = mail.status === 'fulfilled' || wa.status === 'fulfilled';
   if (!ok) return reply(502, { ok: false, error: 'delivery' });
+  if (mail.status !== 'fulfilled') console.error('[contact] partial: email not delivered, whatsapp ok');
+  if (wa.status !== 'fulfilled') console.error('[contact] partial: whatsapp not delivered, email ok');
   return reply(200, { ok: true, email: mail.status === 'fulfilled', whatsapp: wa.status === 'fulfilled' });
 };

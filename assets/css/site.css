@@ -173,7 +173,7 @@ select.vd-input { appearance: auto; }
 .form-return { display: none; scroll-margin-top: calc(var(--header-h) + 16px); }
 .form-return:target, .form-return.is-shown { display: block; }
 
-/* v5 — header fixe, logo centré, premier écran « deux mondes » */
+/* v5 – header fixe, logo centré, premier écran « deux mondes » */
 :root { --header-h: 96px; }
 @media (max-width: 1099px) { :root { --header-h: 72px; } }
 .site-header, .site-header.is-solid { position: sticky; top: 0; margin-bottom: 0; transform: none !important; transition: none; background: rgba(251,250,247,.97); color: var(--ink); border-bottom: 1px solid rgba(39,39,39,.12); }
@@ -232,7 +232,7 @@ select.vd-input { appearance: auto; }
 }
 .news2-empty { margin-top: var(--space-8); font-size: 21px; color: #4d4d4d; }
 
-/* v6 — menu sur l'image, logo au centre du premier écran */
+/* v6 – menu sur l'image, logo au centre du premier écran */
 @media (min-width: 1100px) {
   :root { --header-h: 84px; }
   .site-header, .site-header.is-solid { margin-bottom: calc(-1 * var(--header-h)); background: linear-gradient(to bottom, rgba(251,250,247,.92), rgba(251,250,247,.78)); backdrop-filter: blur(6px); border-bottom-color: rgba(39,39,39,.08); }
@@ -255,19 +255,19 @@ select.vd-input { appearance: auto; }
   .hero2-rule-top { margin: 14px 0 22px; }
 }
 
-/* v7 — lisibilité des sous-titres du premier écran */
+/* v7 – lisibilité des sous-titres du premier écran */
 .hero2-kw, .hero2-sub { position: relative; color: #1f1f1f; text-shadow: 0 0 14px rgba(251,250,247,.95), 0 0 4px rgba(251,250,247,.9); }
 .hero2-kw { font-weight: 500; font-size: 14px; }
 .hero2-kw i { opacity: .8; }
 .hero2-sub { display: inline-block; margin-top: 16px; padding: 8px 16px; font-weight: 500; font-size: 12.5px; background: rgba(251,250,247,.82); text-shadow: none; }
 .vd-hero2::before { background: radial-gradient(ellipse 40% 58% at 50% 34%, rgba(251,250,247,.94), rgba(251,250,247,.7) 55%, rgba(251,250,247,0) 100%); }
 
-/* v8 — brume claire au lieu d'un fond net */
+/* v8 – brume claire au lieu d'un fond net */
 .hero2-sub { background: none; padding: 0; }
 .hero2-kw, .hero2-sub { isolation: isolate; text-shadow: 0 0 18px rgba(251,250,247,1), 0 0 6px rgba(251,250,247,.95); }
 .hero2-kw::before, .hero2-sub::before { content: ""; position: absolute; z-index: -1; inset: -18px -56px; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(251,250,247,.9) 0%, rgba(251,250,247,.6) 45%, rgba(251,250,247,0) 100%); filter: blur(8px); pointer-events: none; }
 
-/* v9 — bandeau « Dernières expériences professionnelles » */
+/* v9 – bandeau « Dernières expériences professionnelles » */
 .xp-strip { background: #fbfaf7; padding: 40px clamp(20px, 4vw, 64px) 48px; border-bottom: 1px solid rgba(39,39,39,.12); }
 .xp-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 28px; }
 .xp-title { margin: 0; display: flex; align-items: center; gap: 28px; font: 400 15px/1.3 var(--font-sans); letter-spacing: .18em; text-transform: uppercase; color: #2e2e2e; }
@@ -306,7 +306,7 @@ select.vd-input { appearance: auto; }
 .site-header .vd-menu .vd-lang a { letter-spacing: .16em; }
 .menu-layer .vd-lang a { font-size: 15px; color: var(--ink); }
 
-/* Notre démarche — local block */
+/* Notre démarche – local block */
 .vd-demarche-label { display: flex; align-items: center; gap: var(--space-6); margin: 0 0 var(--space-10); font: 400 13px/1.4 var(--font-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--slate); }
 .vd-demarche-label::after { content: ""; width: 64px; height: 1px; background: var(--line); }
 .vd-demarche-steps, .vd-demarche-values { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -360,7 +360,7 @@ select.vd-input { appearance: auto; }
   .vd-demarche-label { letter-spacing: .14em; }
 }
 
-/* Expériences professionnelles — local block */
+/* Expériences professionnelles – local block */
 .vd-xp2 { padding: var(--space-30) 0 var(--space-30); }
 .vd-xp2-wrap { max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 7vw, 120px); }
 .vd-xp2-intro { text-align: center; margin-bottom: var(--space-14); }
@@ -413,7 +413,7 @@ a.vd-xp2-link:hover::after { width: 100%; }
   .vd-xp2-item .vd-xp2-link { margin-bottom: var(--space-4); }
 }
 
-/* Services — Healthcare / Residential (local block) */
+/* Services – Healthcare / Residential (local block) */
 .vd-sv { padding: var(--space-14) 0 var(--space-30); }
 .vd-sv-wrap { max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4.5vw, 72px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 72px; grid-auto-rows: auto; }
 .vd-sv-dir { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; min-width: 0; position: relative; }
@@ -447,7 +447,7 @@ a.vd-xp2-link:hover::after { width: 100%; }
   .vd-sv-item { grid-template-columns: 36px minmax(0, 1fr); }
 }
 
-/* À propos — journal layout */
+/* À propos – journal layout */
 .vd-about { padding: var(--space-14) 0 var(--space-30); color: var(--ink); }
 .vd-about-wrap, .vd-about-values-wrap { max-width: 1440px; margin: 0 auto; padding: 0 var(--space-14); }
 .vd-about-wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6.2fr) minmax(0, 3.4fr); grid-template-areas: "photo main facts" "photo path path"; gap: 0 var(--space-10); align-items: start; }
@@ -515,7 +515,7 @@ a.vd-xp2-link:hover::after { width: 100%; }
   .vd-about-values li:first-child { border-top: 0; padding-top: 0; }
 }
 
-/* Contact — 3 zones (FR) */
+/* Contact – 3 zones (FR) */
 .vd-ct { background: var(--cream); color: var(--ink); }
 .vd-ct-wrap { max-width: 1440px; margin: 0 auto; padding: 0 0 0 var(--space-14); display: grid; grid-template-columns: minmax(0, 31fr) minmax(0, 32fr) minmax(0, 37fr); align-items: stretch; }
 .vd-ct-intro { padding: var(--space-14) var(--space-10) var(--space-14) 0; min-width: 0; }
@@ -574,3 +574,37 @@ a.vd-xp2-link:hover::after { width: 100%; }
 
 .vd-about-photo img { object-position: 60% 30%; }
 @media (max-width: 720px) { .vd-about-photo img { aspect-ratio: 3 / 4; object-position: 60% 35%; } }
+
+/* v18 – corrections tests */
+.vd-flag-news { display: none !important; }
+.vd-ct-lead { text-wrap: pretty; }
+.vd-ct-list a { min-height: 44px; align-content: center; }
+.vd-about-note { font-size: 13px; }
+.hero2-text, .hero2-kw, .hero2-sub { max-width: 100%; box-sizing: border-box; }
+.hero2-title { text-wrap: balance; }
+@media (min-width: 761px) {
+  .hero2-sub { color: #141414; font-weight: 500; padding: 6px 28px; background: linear-gradient(90deg, rgba(251,250,247,0), rgba(251,250,247,.88) 14%, rgba(251,250,247,.88) 86%, rgba(251,250,247,0)); text-shadow: none; }
+}
+@media (max-width: 480px) {
+  .hero2-title { font-size: 26px; letter-spacing: .06em; margin-right: -.06em; }
+  .hero2-title br { display: none; }
+  .hero2-kw { letter-spacing: .14em; margin-right: -.14em; }
+  .hero2-sub { letter-spacing: .08em; overflow-wrap: anywhere; }
+  .vd-xp2-h { font-size: 22px; letter-spacing: .06em; margin-right: 0; text-wrap: balance; overflow-wrap: anywhere; }
+}
+@media (max-width: 360px) {
+  .hero2-text { padding-left: 16px; padding-right: 16px; }
+  .hero2-title { font-size: 23px; letter-spacing: .04em; }
+  .hero2-kw { font-size: 12px; letter-spacing: .1em; }
+  .hero2-sub { font-size: 11px; letter-spacing: .04em; }
+  .vd-xp2-wrap { padding: 0 16px; }
+}
+@media (min-width: 721px) and (max-width: 1099px) {
+  .vd-about-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) 0; }
+  .vd-about-col:nth-child(3) { grid-column: 1 / -1; padding-left: 0; border-left: 0; border-top: 1px solid var(--line); padding-top: var(--space-6); }
+  .vd-about-col h4 { font-size: 16px; }
+  .vd-about-col p b, .vd-about-col p span, .vd-about-col li { font-size: 15px; }
+  .vd-about-facts span { font-size: 14px; }
+}
+.hero2-kw::before, .hero2-sub::before { left: 0; right: 0; }
+@media (max-width: 760px) { .hero2-kw::before, .hero2-sub::before { display: none; } }

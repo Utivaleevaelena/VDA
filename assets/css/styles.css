@@ -1,5 +1,5 @@
 
-/* Valeria Denisova Architecture — Quiet Premium. Classes: vd-*. */
+/* Valeria Denisova Architecture – Quiet Premium. Classes: vd-*. */
 .vd, .vd * { box-sizing: border-box; }
 .vd { font-family: var(--font-sans); color: var(--ink); background: var(--cream); font-size: 16px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
 .vd-container { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-14); }
