@@ -414,32 +414,41 @@ a.vd-xp2-link:hover::after { width: 100%; }
 }
 
 /* Services – Healthcare / Residential (local block) */
-.vd-sv { padding: var(--space-14) 0 var(--space-30); }
-.vd-sv-wrap { max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4.5vw, 72px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 72px; grid-auto-rows: auto; }
-.vd-sv-dir { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; min-width: 0; position: relative; }
+.vd-sv { box-sizing: border-box; min-height: calc(100svh - var(--header-h)); display: flex; flex-direction: column; padding: var(--space-5) 0 var(--space-6); }
+.vd-sv-wrap { max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4.5vw, 72px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(200px, 1fr) repeat(4, auto); column-gap: 72px; flex: 1 0 auto; width: 100%; box-sizing: border-box; }
+.vd-sv-dir { display: grid; grid-row: 1 / span 5; grid-template-rows: subgrid; row-gap: 0; min-width: 0; position: relative; }
 .vd-sv-dir + .vd-sv-dir::before { content: ""; position: absolute; top: 0; bottom: 0; left: -36px; width: 1px; background: var(--line); }
-.vd-sv-photo { display: block; width: 100%; height: auto; aspect-ratio: 2.4; object-fit: cover; object-position: center; border-radius: 0; margin-bottom: var(--space-8); }
-.vd-sv-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; margin: 0; font: 300 clamp(22px, 2vw, 28px)/1.2 var(--font-sans); letter-spacing: .1em; color: var(--ink); overflow-wrap: anywhere; }
-.vd-sv-title::after { content: ""; width: 56px; height: 1px; background: var(--line); }
-.vd-sv-sub { margin: var(--space-3) 0 0; font: italic 300 21px/1.35 var(--font-sans); color: var(--ink); }
-.vd-sv-intro { margin: var(--space-4) 0 var(--space-8); font: 300 17px/1.55 var(--font-sans); color: var(--ink); max-width: 36em; text-wrap: pretty; }
-.vd-sv-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, auto); column-gap: var(--space-8); }
-.vd-sv-list { list-style: none; margin: 0; padding: 0; display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: var(--space-6); min-width: 0; }
+.vd-sv-hero { display: grid; margin-bottom: var(--space-5); min-height: 0; max-height: 460px; overflow: hidden; }
+.vd-sv-photo { grid-area: 1 / 1; display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: center; border-radius: 0; }
+.vd-sv-cap { grid-area: 1 / 1; align-self: end; position: relative; padding: clamp(56px, 7vw, 96px) clamp(20px, 2.2vw, 32px) clamp(18px, 1.8vw, 26px); background: linear-gradient(to top, color-mix(in srgb, var(--cream) 94%, transparent) 0%, color-mix(in srgb, var(--cream) 86%, transparent) 55%, color-mix(in srgb, var(--cream) 0%, transparent) 100%); }
+.vd-sv-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; margin: 0; font: 300 clamp(20px, 1.8vw, 26px)/1.2 var(--font-sans); letter-spacing: .1em; color: var(--ink); overflow-wrap: anywhere; }
+.vd-sv-title::after { content: ""; width: 56px; height: 1px; background: var(--ink); opacity: .5; }
+.vd-sv-sub { margin: var(--space-2) 0 0; font: italic 400 19px/1.35 var(--font-sans); color: var(--ink); }
+.vd-sv-intro { margin: var(--space-2) 0 0; font: 400 15px/1.5 var(--font-sans); color: var(--ink); max-width: 38em; text-wrap: pretty; }
+@media (min-width: 1100px) { .vd-sv-intro { min-height: 4.5em; } }
+.vd-sv-lists { display: grid; grid-row: 2 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: subgrid; column-gap: var(--space-8); }
+.vd-sv-list { list-style: none; margin: 0; padding: 0; display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: var(--space-4); min-width: 0; }
 .vd-sv-list + .vd-sv-list { border-left: 1px solid var(--line); padding-left: var(--space-8); }
 .vd-sv-item { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: var(--space-4); align-items: start; }
 .vd-sv-icon { display: block; width: 40px; height: 40px; object-fit: contain; }
 .vd-sv-item-t { margin: 2px 0 4px; font: 700 12px/1.4 var(--font-sans); letter-spacing: .12em; color: var(--ink); overflow-wrap: anywhere; }
-.vd-sv-item-d { margin: 0; font: 300 15px/1.45 var(--font-sans); color: var(--ink); text-wrap: pretty; }
+.vd-sv-item-d { margin: 0; font: 300 14px/1.4 var(--font-sans); color: var(--ink); text-wrap: pretty; }
 @media (max-width: 1099px) {
   .vd-sv-wrap { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .vd-sv { min-height: 0; display: block; }
+  .vd-sv-wrap { grid-template-rows: none; }
   .vd-sv-dir { grid-row: auto; grid-template-rows: none; display: block; }
+  .vd-sv-lists { grid-template-rows: repeat(4, auto); row-gap: var(--space-5); }
+  .vd-sv-list { row-gap: 0; }
+  .vd-sv-hero { min-height: 340px; }
   .vd-sv-dir + .vd-sv-dir { margin-top: var(--space-14); padding-top: var(--space-14); border-top: 1px solid var(--line); }
   .vd-sv-dir + .vd-sv-dir::before { display: none; }
 }
 @media (max-width: 720px) {
   .vd-sv { padding: var(--space-8) 0 var(--space-14); }
-  .vd-sv-photo { margin-bottom: var(--space-6); }
-  .vd-sv-sub { font-size: 19px; }
+  .vd-sv-hero { min-height: 300px; }
+  .vd-sv-cap { padding: 64px 18px 18px; }
+  .vd-sv-sub { font-size: 17px; }
   .vd-sv-lists { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: var(--space-6); }
   .vd-sv-list { grid-row: auto; grid-template-rows: none; }
   .vd-sv-list + .vd-sv-list { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: var(--space-6); }
@@ -608,3 +617,53 @@ a.vd-xp2-link:hover::after { width: 100%; }
 }
 .hero2-kw::before, .hero2-sub::before { left: 0; right: 0; }
 @media (max-width: 760px) { .hero2-kw::before, .hero2-sub::before { display: none; } }
+
+#valeurs { scroll-margin-top: 16px; }
+
+/* Expériences – compact laptop layout (fits one screen) */
+.vd-xp2-h { font-size: clamp(22px, 2.2vw, 28px); }
+@media (min-width: 1100px) { .vd-xp2-sub { max-width: none; white-space: nowrap; } }
+@media (min-width: 1100px) {
+  .vd-xp2 { padding: var(--space-5) 0 var(--space-8); }
+  .vd-xp2-intro { margin-bottom: var(--space-6); }
+  .vd-xp2-sub { margin-top: var(--space-2); font-size: 16px; }
+  .vd-xp2-cat + .vd-xp2-cat { margin-top: var(--space-6); }
+  .vd-xp2-cat-head { margin-bottom: var(--space-4); }
+  .vd-xp2-cat-title { font-size: 15px; }
+  .vd-xp2-cat-note { font-size: 14px; line-height: 1.4; }
+  .vd-xp2-sketch { height: 52px; margin-bottom: var(--space-2); }
+  .vd-xp2-title { font-size: 14px; }
+  .vd-xp2-loc { font-size: 14px; margin-top: 2px; }
+  .vd-xp2-rule { margin: 8px 0; }
+  .vd-xp2-val { font-size: 14px; line-height: 1.4; margin-bottom: 8px; }
+  .vd-xp2-link { min-height: 36px; }
+}
+
+/* À propos – compact laptop layout (fits one screen) */
+@media (min-width: 1100px) {
+  .vd-about { padding-top: var(--space-5); }
+  .vd-about-role { font-size: 19px; margin-top: 4px; }
+  .vd-about-bio { margin-top: var(--space-5); gap: 10px; }
+  .vd-about-bio p { font-size: 15.5px; line-height: 1.5; }
+  .vd-about-aside { margin-top: var(--space-4); font-size: 13px; line-height: 1.5; }
+  .vd-about-facts { gap: var(--space-4); }
+  .vd-about-facts li + li::before { margin-bottom: var(--space-4); }
+  .vd-about-facts b { font-size: 20px; }
+  .vd-about-facts .vd-about-big { font-size: 34px; }
+  .vd-about-facts span { font-size: 14px; }
+  .vd-about-path { margin-top: var(--space-6); }
+  .vd-about-path .vd-about-label { margin-bottom: var(--space-4); }
+  .vd-about-col h4 { font-size: 15px; }
+  .vd-about-col p, .vd-about-col p b, .vd-about-col p span, .vd-about-col li { font-size: 14px; line-height: 1.45; }
+}
+@media (min-width: 1100px) { .vd-xp2 { box-sizing: border-box; min-height: calc(100svh - var(--header-h) + 8px); display: flex; flex-direction: column; justify-content: center; } .vd-xp2-wrap { width: 100%; box-sizing: border-box; } }
+.vd-about-yrline { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: var(--space-4); }
+.vd-about-yrline > span:last-child { font-variant-numeric: tabular-nums; }
+@media (min-width: 1280px) {
+  .vd-about-cols { grid-template-columns: auto auto auto; justify-content: space-between; }
+  .vd-about-col { padding: 0 var(--space-4); }
+  .vd-about-yrline, .vd-about-col li { white-space: nowrap; flex-wrap: nowrap; }
+}
+@media (min-width: 1280px) and (max-width: 1399px) {
+  .vd-about-col p, .vd-about-col p b, .vd-about-col p span, .vd-about-col li { font-size: 13px; }
+}
