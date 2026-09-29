@@ -667,3 +667,27 @@ a.vd-xp2-link:hover::after { width: 100%; }
 @media (min-width: 1280px) and (max-width: 1399px) {
   .vd-about-col p, .vd-about-col p b, .vd-about-col p span, .vd-about-col li { font-size: 13px; }
 }
+
+/* Logo « retour en haut » – visible dans la barre à partir du 2e écran */
+@media (min-width: 1100px) {
+  .site-header .vd-nav { grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); column-gap: clamp(32px, 3.4vw, 64px); }
+  .site-header .vd-logo { display: flex; flex-direction: row; gap: 12px; min-height: 44px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s; }
+  .site-header .vd-logo img { width: 44px; }
+  .site-header .vd-logo-txt { justify-items: start; }
+  .site-header.is-past-hero .vd-logo { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease, visibility 0s; }
+}
+@media (min-width: 1100px) and (prefers-reduced-motion: reduce) { .site-header .vd-logo { transition: none !important; transform: none; } }
+
+/* Valeurs + Notre démarche = un seul bloc */
+.vd-demarche--merged { padding-top: var(--space-14); }
+.vd-demarche--merged .vd-about-values-wrap { max-width: none; margin: 0; padding: 0; color: var(--ink); }
+.vd-demarche--merged .vd-about-values-wrap .vd-about-label { margin: 0 0 var(--space-8); }
+.vd-demarche-sep { display: block; height: 1px; background: var(--line); margin: var(--space-10) 0; }
+.vd-about { padding-bottom: var(--space-14); }
+@media (min-width: 1100px) {
+  .vd-demarche--merged { padding-top: var(--space-6); padding-bottom: var(--space-10); }
+  .vd-demarche--merged .vd-about-values-wrap .vd-about-label { margin-bottom: var(--space-6); }
+  .vd-demarche-sep { margin: var(--space-8) 0; }
+  .vd-demarche--merged .vd-demarche-label { margin-bottom: var(--space-6); }
+}
+@media (max-width: 720px) { .vd-demarche--merged { padding-top: var(--space-8); } .vd-demarche-sep { margin: var(--space-8) 0; } }

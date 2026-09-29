@@ -105,3 +105,19 @@
       .then(function () { btn.disabled = false; btn.textContent = MSG.send; });
   });
 })();
+
+/* logo = retour en haut ; affiché dans la barre après le 1er écran */
+(function () {
+  var header = document.getElementById('site-header'), hero = document.getElementById('accueil');
+  if (!header) return;
+  function upd() { var lim = hero ? hero.offsetHeight - header.offsetHeight : window.innerHeight * 0.9; header.classList.toggle('is-past-hero', window.scrollY > lim); }
+  window.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); upd();
+  document.querySelectorAll('a.vd-logo').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+    });
+  });
+})();
