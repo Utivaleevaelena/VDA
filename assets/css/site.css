@@ -691,3 +691,5 @@ a.vd-xp2-link:hover::after { width: 100%; }
   .vd-demarche--merged .vd-demarche-label { margin-bottom: var(--space-6); }
 }
 @media (max-width: 720px) { .vd-demarche--merged { padding-top: var(--space-8); } .vd-demarche-sep { margin: var(--space-8) 0; } }
+.vd-about-col li a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.vd-about-col li a:hover, .vd-about-col li a:focus-visible { text-decoration-color: currentColor; }
