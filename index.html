@@ -26,16 +26,14 @@
 <meta name="theme-color" content="#fbfaf7">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;700&amp;family=Reenie+Beanie&amp;display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;700&amp;family=Reenie+Beanie&amp;display=swap">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/figtree-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css?v=1">
 <link rel="preload" as="image" href="assets/img/hero-deux-mondes-1672.webp" imagesrcset="assets/img/hero-deux-mondes-960.webp 960w, assets/img/hero-deux-mondes-1672.webp 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/tokens.css?v=18">
 <link rel="stylesheet" href="assets/css/styles.css?v=18">
-<link rel="stylesheet" href="assets/css/site.css?v=24">
+<link rel="stylesheet" href="assets/css/site.css?v=26">
 <script>document.documentElement.className = 'js';</script>
-<script src="assets/js/site.js?v=22" defer></script>
+<script src="assets/js/site.js?v=23" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Valéria Denisova","jobTitle":"Architecte inscrite à l’Ordre des architectes – PACA","address":{"@type":"PostalAddress","addressLocality":"Nice","addressCountry":"FR"},"knowsLanguage":["fr","en","ru"],"sameAs":["https://www.linkedin.com/in/val%C3%A9ria-denisova-952bab49"],"url":"https://vda-six.vercel.app/"}</script>
 </head>
 <body class="vd">
@@ -365,6 +363,7 @@
       <ul class="vd-ct-list">
         <li><img src="assets/img/contact-icon-email.png" width="96" height="96" alt=""><div><a href="mailto:valeria.denisova@hotmail.fr">valeria.denisova@hotmail.fr</a></div></li>
         <li><img src="assets/img/contact-icon-phone.png" width="96" height="96" alt=""><div><a href="tel:+33643422078">06 43 42 20 78</a></div></li>
+        <li><img src="assets/img/contact-icon-phone.png" width="96" height="96" alt=""><div><a href="https://wa.me/33643422078" target="_blank" rel="noopener noreferrer">Écrire sur WhatsApp<span class="sr-only"> (nouvel onglet)</span></a></div></li>
         <li><img src="assets/img/contact-icon-location.png" width="96" height="96" alt=""><div><span class="vd-ct-main">Nice, Côte d’Azur</span><span class="vd-ct-sub">Interventions en France et à l’international</span></div></li>
         <li><img src="assets/img/contact-icon-linkedin.png" width="96" height="96" alt=""><div><a href="https://www.linkedin.com/in/val%C3%A9ria-denisova-952bab49" target="_blank" rel="noopener noreferrer"><span class="vd-ct-main">LinkedIn</span><span class="vd-ct-sub">Voir mon profil<span class="sr-only"> (nouvel onglet)</span></span></a></div></li>
       </ul>
@@ -401,6 +400,7 @@
       </label>
       <p class="field-error" id="err-message"></p>
       <button class="vd-ct-btn" type="submit">Envoyer le message</button>
+      <p class="vd-form-notice">Les informations transmises via ce formulaire sont traitées par Valéria Denisova afin de répondre à votre demande. Les champs marqués d’un * sont obligatoires ; la localisation du projet est facultative. Selon la nature de votre demande, le traitement repose sur des mesures précontractuelles prises à votre demande ou sur l’intérêt légitime à répondre aux prises de contact professionnelles. Les données sont transmises via Vercel et FormSubmit ; la documentation de FormSubmit indique une conservation des soumissions pendant 30 jours. Pour en savoir plus et exercer vos droits, consultez notre <a href="politique-confidentialite.html">Politique de confidentialité</a>. Vous pouvez également introduire une réclamation auprès de la CNIL.</p>
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
     </form>
 
@@ -429,6 +429,12 @@
   </div>
   <div class="vd-footer-bottom">
     <span>© 2026 Valéria Denisova Architecture</span>
+    <nav class="vd-legal-links" aria-label="Informations légales">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <a href="cookies.html">Cookies &amp; traceurs</a>
+      <a href="conditions-utilisation.html">Conditions d’utilisation</a>
+    </nav>
     <a href="#accueil">Retour en haut ↑</a>
   </div>
 </footer>

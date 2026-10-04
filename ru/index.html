@@ -27,16 +27,14 @@
 <meta name="theme-color" content="#fbfaf7">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;700&amp;family=Reenie+Beanie&amp;display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;700&amp;family=Reenie+Beanie&amp;display=swap">
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/figtree-latin.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/fonts.css?v=1">
 <link rel="preload" as="image" href="../assets/img/hero-deux-mondes-1672.webp" imagesrcset="../assets/img/hero-deux-mondes-960.webp 960w, ../assets/img/hero-deux-mondes-1672.webp 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="../assets/css/tokens.css?v=18">
 <link rel="stylesheet" href="../assets/css/styles.css?v=18">
-<link rel="stylesheet" href="../assets/css/site.css?v=22">
+<link rel="stylesheet" href="../assets/css/site.css?v=26">
 <script>document.documentElement.className = 'js';</script>
-<script src="../assets/js/site.js?v=22" defer></script>
+<script src="../assets/js/site.js?v=23" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Valéria Denisova","alternateName":"Валерия Денисова","jobTitle":"Архитектор, член Ордена архитекторов Франции – PACA","address":{"@type":"PostalAddress","addressLocality":"Beausoleil","addressCountry":"FR"},"knowsLanguage":["fr","en","ru"],"sameAs":["https://www.linkedin.com/in/val%C3%A9ria-denisova-952bab49"],"url":"https://vda-six.vercel.app/ru"}</script>
 </head>
 <body class="vd">
@@ -361,6 +359,7 @@
     <p class="vd-body-lg">У вас есть место, которое нужно преобразовать, проект в сфере здравоохранения или идея сотрудничества?</p>
     <p>Расскажите о вашей ситуации и о том, что вы хотели бы изменить. Вместе мы определим следующий шаг.</p>
     <a class="vd-link" href="https://www.linkedin.com/in/val%C3%A9ria-denisova-952bab49" target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (в новой вкладке)</span></a>
+    <a class="vd-link" href="https://wa.me/33643422078" target="_blank" rel="noopener noreferrer">Написать в WhatsApp ↗<span class="sr-only"> (в новой вкладке)</span></a>
   </div>
 
   <form class="vd-contact-form" id="contact-form" action="/api/contact" method="post" novalidate>
@@ -394,6 +393,7 @@
     <p class="field-error" id="err-message"></p>
     <button class="btn" type="submit">Отправить</button>
     <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    <p class="vd-form-notice">Данные из этой формы обрабатывает Валерия Денисова, чтобы ответить на ваш запрос. Они передаются через Vercel и FormSubmit; FormSubmit хранит отправленные сообщения 30 дней. Подробнее и о ваших правах – в <a href="../politique-confidentialite.html" lang="fr">Politique de confidentialité</a> (на французском). Вы также можете подать жалобу в CNIL.</p>
   </form>
 
   <div class="contact-faq faq">
@@ -427,6 +427,12 @@
   </div>
   <div class="vd-footer-bottom">
     <span>© 2026 Valéria Denisova Architecture</span>
+    <nav class="vd-legal-links" aria-label="Правовая информация" lang="fr">
+      <a href="../mentions-legales.html">Mentions légales</a>
+      <a href="../politique-confidentialite.html">Politique de confidentialité</a>
+      <a href="../cookies.html">Cookies &amp; traceurs</a>
+      <a href="../conditions-utilisation.html">Conditions d’utilisation</a>
+    </nav>
     <a href="#accueil">Наверх ↑</a>
   </div>
 </footer>

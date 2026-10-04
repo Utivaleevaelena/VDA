@@ -1,11 +1,9 @@
 // Vercel serverless function: POST /api/contact
-// One request from the browser → server sends to e-mail (FormSubmit) and WhatsApp (CallMeBot) in parallel.
+// One request from the browser → server forwards it by e-mail (FormSubmit) only. No other third party.
 // Nothing sensitive is shipped to the page.
 //
 // Env vars (Vercel → Settings → Environment Variables):
 //   FORMSUBMIT_ID    FormSubmit target: the random ID given after activation (recommended) or the e-mail address
-//   WHATSAPP_PHONE   e.g. 33643422078
-//   WHATSAPP_APIKEY  CallMeBot key
 //   SITE_URL         optional, default https://vda-six.vercel.app
 
 const SITE_URL = process.env.SITE_URL || 'https://vda-six.vercel.app';
@@ -54,28 +52,6 @@ async function sendEmail(f) {
   }
 }
 
-async function sendWhatsApp(f) {
-  const phone = process.env.WHATSAPP_PHONE, key = process.env.WHATSAPP_APIKEY;
-  if (!phone) console.error('[contact] missing env WHATSAPP_PHONE');
-  if (!key) console.error('[contact] missing env WHATSAPP_APIKEY');
-  if (!phone || !key) throw new Error('missing env');
-  const text = [
-    '📩 Nouveau message – site',
-    'Nom : ' + clip(one(f.name), 80),
-    'E-mail : ' + f.email,
-    'Projet : ' + f.typeLabel,
-    f.location ? 'Lieu : ' + clip(one(f.location), 80) : null,
-    '',
-    clip(one(f.message), 400)
-  ].filter((l) => l !== null).join('\n');
-  const r = await fetch('https://api.callmebot.com/whatsapp.php?phone=' + encodeURIComponent(phone) + '&apikey=' + encodeURIComponent(key) + '&text=' + encodeURIComponent(text));
-  const txt = await r.text();
-  if (!r.ok || /error|invalid|not (been )?activ/i.test(txt)) {
-    console.error('[contact] whatsapp failed', r.status, txt.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 500));
-    throw new Error('whatsapp');
-  }
-}
-
 module.exports = async (req, res) => {
   const wantsJson = (req.headers.accept || '').includes('application/json');
   const reply = (code, body) => {
@@ -107,13 +83,10 @@ module.exports = async (req, res) => {
   if (errors.length) return reply(400, { ok: false, error: 'validation', fields: errors });
   f.typeLabel = TYPES[f.project_type];
 
-  // network errors / exceptions not already logged inside the senders
-  const safe = (name, p) => p.catch((e) => { if (!/^(email|whatsapp|missing env)$/.test(e && e.message)) console.error('[contact] ' + name + ' failed', 0, e && e.message); throw e; });
-  const [mail, wa] = await Promise.allSettled([safe('email', sendEmail(f)), safe('whatsapp', sendWhatsApp(f))]);
-
-  const ok = mail.status === 'fulfilled' || wa.status === 'fulfilled';
-  if (!ok) return reply(502, { ok: false, error: 'delivery' });
-  if (mail.status !== 'fulfilled') console.error('[contact] partial: email not delivered, whatsapp ok');
-  if (wa.status !== 'fulfilled') console.error('[contact] partial: whatsapp not delivered, email ok');
-  return reply(200, { ok: true, email: mail.status === 'fulfilled', whatsapp: wa.status === 'fulfilled' });
+  try { await sendEmail(f); }
+  catch (e) {
+    if (!/^(email|missing env)$/.test(e && e.message)) console.error('[contact] email failed', 0, e && e.message);
+    return reply(502, { ok: false, error: 'delivery' });
+  }
+  return reply(200, { ok: true });
 };
