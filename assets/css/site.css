@@ -583,7 +583,7 @@ a.vd-xp2-link:hover::after { width: 100%; }
   .vd-ct-slogan br { display: none; }
 }
 
-.vd-about-photo img { object-position: 60% 30%; }
+.vd-about-photo img { object-position: 50% 22%; }
 @media (max-width: 720px) { .vd-about-photo img { aspect-ratio: 3 / 4; object-position: 60% 35%; } }
 
 /* v18 – corrections tests */
@@ -752,3 +752,7 @@ a.vd-xp2-link:hover::after { width: 100%; }
 .vd-demarche-media .vd-ai-tag { top: auto; left: auto; right: 8px; bottom: 8px; }
 .vd-ai-tag--bl { top: auto; bottom: 4px; left: 4px; }
 .vd-footer-ai { margin: 0; padding-top: var(--space-6); max-width: 820px; font-size: 13px; line-height: 1.5; opacity: .75; text-wrap: pretty; }
+
+/* v39 – verbes en bas à gauche du portrait */
+.vd-about-verbs, .vd-about-verbs[class] { position: absolute; top: auto; left: 0; bottom: 0; display: grid; gap: 6px; margin: 0; padding: 14px 18px; background: rgba(251,250,247,.88); font-size: 11px; letter-spacing: .16em; color: var(--ink); }
+.vd-about-verbs::after { display: none; }
