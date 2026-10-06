@@ -64,6 +64,8 @@
   d.querySelectorAll('[data-prefill]').forEach(function (a) { a.addEventListener('click', function () { form.project_type.value = a.getAttribute('data-prefill'); setErr('project_type', ''); }); });
   var MSG = root.lang === 'ru'
     ? { req: 'Это поле обязательно.', email: 'Неверный адрес e-mail', ok: 'Спасибо, ваше сообщение отправлено. Мы скоро ответим.', err: 'Не удалось отправить сообщение. Попробуйте позже или напишите в LinkedIn.', sending: 'Отправка…', send: 'Отправить' }
+    : root.lang === 'en'
+    ? { req: 'This field is required.', email: 'Invalid email address', ok: 'Thank you, your message has been sent. We will reply shortly.', err: 'Your message could not be sent. Please try again later or write via LinkedIn.', sending: 'Sending…', send: 'Send message' }
     : { req: 'Ce champ est requis.', email: 'Adresse e-mail invalide', ok: 'Merci, votre message a bien été envoyé. Nous vous répondrons prochainement.', err: 'L’envoi n’a pas abouti. Réessayez un peu plus tard ou écrivez via LinkedIn.', sending: 'Envoi…', send: 'Envoyer le message' };
   var REQ = ['name', 'email', 'project_type', 'message'];
   function setErr(n, m) { var el = form[n], out = d.getElementById('err-' + n); out.textContent = m; if (m) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid'); }

@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
   const wantsJson = (req.headers.accept || '').includes('application/json');
   const reply = (code, body) => {
     if (wantsJson) return res.status(code).json(body);
-    const base = /\/ru(\/|\?|#|$)/.test(req.headers.referer || '') ? '/ru' : '/';
+    const m = /\/(ru|en)(\/|\?|#|$)/.exec(req.headers.referer || ''); const base = m ? '/' + m[1] : '/';
     res.statusCode = 303; res.setHeader('Location', base + (body.ok ? '?envoye=1#form-envoye' : '?erreur=1#form-erreur')); return res.end();
   };
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ ok: false, error: 'method' }); }
