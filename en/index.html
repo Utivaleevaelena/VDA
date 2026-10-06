@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="../assets/css/styles.css?v=18">
 <link rel="stylesheet" href="../assets/css/site.css?v=39">
 <script>document.documentElement.className = 'js';</script>
-<script src="../assets/js/site.js?v=24" defer></script>
+<script src="../assets/js/site.js?v=25" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Valéria Denisova","jobTitle":"Architect registered with the Ordre des architectes – PACA","address":{"@type":"PostalAddress","addressLocality":"Nice","addressCountry":"FR"},"knowsLanguage":["fr","en","ru"],"sameAs":["https://www.linkedin.com/in/val%C3%A9ria-denisova-952bab49"],"url":"https://vda-six.vercel.app/en"}</script>
 </head>
 <body class="vd">
@@ -377,6 +377,9 @@
       <p class="form-status is-ok form-return" id="form-envoye">Thank you, your message has been sent.</p>
       <p class="form-status is-err form-return" id="form-erreur">Your message could not be sent. Please try again or write via LinkedIn.</p>
       <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_next" value="https://vda-six.vercel.app/en/?envoye=1#contact">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
       <label class="vd-field"><span>Name (required)</span>
         <input class="vd-input" name="name" type="text" autocomplete="name" placeholder="Name *" required aria-describedby="err-name">
       </label>

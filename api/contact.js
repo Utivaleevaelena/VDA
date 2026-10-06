@@ -1,6 +1,8 @@
 // Vercel serverless function: POST /api/contact
-// One request from the browser → server forwards it by e-mail (FormSubmit) only. No other third party.
-// Nothing sensitive is shipped to the page.
+// FormSubmit blocks requests coming from Vercel servers, so the server no longer sends the e-mail itself.
+// It validates, rate-limits and drops spam, then hands the browser the FormSubmit ID (never the e-mail address):
+//  - with JS: returns {ok:true, to:ID}; the page posts to formsubmit.co/ajax/ID from the visitor's browser
+//  - without JS: 307 redirect to formsubmit.co/ID (the browser re-posts the same form there)
 //
 // Env vars (Vercel → Settings → Environment Variables):
 //   FORMSUBMIT_ID    FormSubmit target: the random ID given after activation (recommended) or the e-mail address
@@ -31,26 +33,6 @@ async function readBody(req) {
 
 const one = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 const clip = (s, n) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
-
-async function sendEmail(f) {
-  const id = process.env.FORMSUBMIT_ID;
-  if (!id) { console.error('[contact] missing env FORMSUBMIT_ID'); throw new Error('missing env'); }
-  const r = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(id), {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json', Origin: SITE_URL, Referer: SITE_URL + '/' },
-    body: JSON.stringify({
-      name: f.name, email: f.email, project_type: f.typeLabel, location: f.location || '–', message: f.message,
-      _subject: 'Nouveau message – ' + f.typeLabel + ' – ' + f.name,
-      _replyto: f.email, _template: 'table', _captcha: 'false'
-    })
-  });
-  const txt = await r.text();
-  let j = {}; try { j = JSON.parse(txt); } catch {}
-  if (r.status !== 200 || !(j.success === true || j.success === 'true')) {
-    console.error('[contact] email failed', r.status, txt.slice(0, 500));
-    throw new Error('email');
-  }
-}
 
 module.exports = async (req, res) => {
   const wantsJson = (req.headers.accept || '').includes('application/json');
@@ -83,10 +65,8 @@ module.exports = async (req, res) => {
   if (errors.length) return reply(400, { ok: false, error: 'validation', fields: errors });
   f.typeLabel = TYPES[f.project_type];
 
-  try { await sendEmail(f); }
-  catch (e) {
-    if (!/^(email|missing env)$/.test(e && e.message)) console.error('[contact] email failed', 0, e && e.message);
-    return reply(502, { ok: false, error: 'delivery' });
-  }
-  return reply(200, { ok: true });
+  const id = process.env.FORMSUBMIT_ID;
+  if (!id) { console.error('[contact] missing env FORMSUBMIT_ID'); return reply(502, { ok: false, error: 'config' }); }
+  if (wantsJson) return res.status(200).json({ ok: true, to: id, subject: 'Nouveau message – ' + f.typeLabel + ' – ' + f.name, type: f.typeLabel });
+  res.statusCode = 307; res.setHeader('Location', 'https://formsubmit.co/' + encodeURIComponent(id)); return res.end();
 };

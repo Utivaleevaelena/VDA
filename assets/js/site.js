@@ -101,9 +101,14 @@
     var data = {}; ['name', 'email', 'project_type', 'location', 'message', '_honey'].forEach(function (n) { data[n] = (form[n].value || '').trim(); });
     btn.disabled = true; btn.textContent = MSG.sending; setStatus(MSG.sending, '');
     fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.ok !== true) throw new Error('send'); }); })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.ok !== true || !j.to) throw new Error('check'); return j; }); })
+      .then(function (j) {
+        return fetch('https://formsubmit.co/ajax/' + encodeURIComponent(j.to), { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name: data.name, email: data.email, _replyto: data.email, project_type: j.type, location: data.location || '–', message: data.message, _subject: j.subject, _template: 'table', _captcha: 'false' }) })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (k) { if (r.status !== 200 || !(k.success === true || k.success === 'true')) throw new Error('mail ' + (k.message || r.status)); }); });
+      })
       .then(function () { form.reset(); setStatus(MSG.ok, 'is-ok'); })
-      .catch(function () { setStatus(MSG.err, 'is-err'); })
+      .catch(function (err) { if (window.console) console.error('[contact]', err && err.message); setStatus(MSG.err, 'is-err'); })
       .then(function () { btn.disabled = false; btn.textContent = MSG.send; });
   });
 })();
