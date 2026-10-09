@@ -128,3 +128,14 @@
     });
   });
 })();
+
+(function () {
+  var boxes = document.querySelectorAll('.vd-xp2-more');
+  function check() { boxes.forEach(function (b) { if (b.classList.contains('is-open')) return; var t = b.querySelector('.vd-xp2-more-txt'); b.classList.toggle('is-short', t.scrollHeight <= t.clientHeight + 1); }); }
+  boxes.forEach(function (b) {
+    var btn = b.querySelector('.vd-xp2-more-btn');
+    btn.addEventListener('click', function () { var open = b.classList.toggle('is-open'); btn.setAttribute('aria-expanded', open); btn.textContent = open ? btn.dataset.less : btn.dataset.more; });
+  });
+  check(); window.addEventListener('resize', check);
+  if (document.fonts) document.fonts.ready.then(check);
+})();
