@@ -959,3 +959,6 @@ a.vd-xp2-link:hover::after { width: 100%; }
 .ab3-facts b { white-space: nowrap; }
 @media (max-width: 1279px) { .ab3-facts { grid-template-columns: repeat(4, auto); justify-content: start; } }
 @media (max-width: 720px) { .ab3-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* v54 – correctifs mobile / tablette */
+@media (max-width: 1099px) { .ab3-photo { margin-inline: auto; width: 100%; } }
+@media (max-width: 720px) { .ab3-mid { grid-template-columns: minmax(0, 1fr); } .ab3-right { max-width: none; } }
